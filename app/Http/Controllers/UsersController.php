@@ -11,31 +11,31 @@ use App\Models\User;
 
 class UsersController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        // Check if the user is authenticated
-        if (!Auth::check()) {
-            // Redirect to the login page if not authenticated
-            return redirect('admin/login')->with('error', 'You must be logged in to access this page.');
-        }
+//     /**
+//      * Display a listing of the resource.
+//      */
+//     public function index()
+//     {
+//         // Check if the user is authenticated
+//         if (!Auth::check()) {
+//             // Redirect to the login page if not authenticated
+//             return redirect('admin/login')->with('error', 'You must be logged in to access this page.');
+//         }
 
-        $title = "Users";
-        $title1 = "User";
-        $users = User::get();
-        return view('dash/users', compact('title', 'title1', 'users'));    #return view('name of view', compact('name of variables')); 
-    }
+//         $title = "Users";
+//         $title1 = "User";
+//         $users = User::get();
+//         return view('dash/users', compact('title', 'title1', 'users'));    #return view('name of view', compact('name of variables')); 
+//     }
 
-    /**
-     * Login Form
-     */
-    public function registrationforms()
-    {
-        // session()->forget('errors'); // Clear errors when loading the registration form
-        return view('dash/login');
-    }
+//     /**
+//      * Login Form
+//      */
+//     public function registrationforms()
+//     {
+//         // session()->forget('errors'); // Clear errors when loading the registration form
+//         return view('dash/login');
+//     }
 
     /**
      * Show the form for creating a new resource.
@@ -45,7 +45,7 @@ class UsersController extends Controller
         // Check if the user is authenticated
         if (!Auth::check()) {
             // Redirect to the login page if not authenticated
-            return redirect('admin/login')->with('error', 'You must be logged in to access this page.');
+            return redirect('login')->with('error', 'You must be logged in to access this page.');
         }
         
         $title = "Users";
@@ -54,30 +54,30 @@ class UsersController extends Controller
     }
 
 
-    /**
-     * Authenticate Registration
-     */
-    public function login(Request $request)
-    {
-        $credentials = $request->validate([
-            'username' => 'required|string',
-            'password' => 'required|string',
-        ]);
+//     /**
+//      * Authenticate Registration
+//      */
+//     public function login(Request $request)
+//     {
+//         $credentials = $request->validate([
+//             'username' => 'required|string',
+//             'password' => 'required|string',
+//         ]);
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
+//         if (Auth::attempt($credentials)) {
+//             $request->session()->regenerate();
             
-            // Set session variables
-            Session::put('username', Auth::user()->username);
-            Session::put('name', Auth::user()->name);
+//             // Set session variables
+//             Session::put('username', Auth::user()->username);
+//             Session::put('name', Auth::user()->name);
 
-            return redirect()->intended('admin/users');
-        }
-            # Redirect back to the #signin fragment with errors
-            return redirect()->to('/test#signin')
-            ->withErrors(['login_error' => 'The provided username or password do not match our records.'])
-            ->withInput($request->only('username'));
-        }
+//             return redirect()->intended('admin/users');
+//         }
+//             # Redirect back to the #signin fragment with errors
+//             return redirect()->to('/test#signin')
+//             ->withErrors(['login_error' => 'The provided username or password do not match our records.'])
+//             ->withInput($request->only('username'));
+//         }
 
     /**
      * Store a newly created resource in storage.
@@ -92,34 +92,30 @@ class UsersController extends Controller
                 'password' => 'required|string|min:8',
             ],$messages);
 
-            if ($request->route()->named('signup')) {
-                    $data['active'] = true;  // Set default value for active field
-            } else {
-                $data['active'] = isset($request->active); #laravel wiil transfer if is set check boxx =1 and non = 0
-            }
+            $data['active'] = isset($request->active); #laravel wiil transfer if is set check boxx =1 and non = 0
             $data['password'] = Hash::make($data['password']);
             User::create($data);
-            return redirect('admin/users')->with('success', 'User created successfully.');
+            return redirect('users')->with('success', 'User created successfully.');
     }
 
-    /**
-     * Logout
-     */
-    public function logout(Request $request)
-    {
-        Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        return redirect('admin/login');
-    }
+//     /**
+//      * Logout
+//      */
+//     public function logout(Request $request)
+//     {
+//         Auth::logout();
+//         $request->session()->invalidate();
+//         $request->session()->regenerateToken();
+//         return redirect('admin/login');
+//     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+//     /**
+//      * Display the specified resource.
+//      */
+//     public function show(string $id)
+//     {
+//         //
+//     }
 
     /**
      * Show the form for editing the specified resource.
@@ -129,7 +125,7 @@ class UsersController extends Controller
         // Check if the user is authenticated
         if (!Auth::check()) {
             // Redirect to the login page if not authenticated
-            return redirect('admin/login')->with('error', 'You must be logged in to access this page.');
+            return redirect('login')->with('error', 'You must be logged in to access this page.');
         }
         
         $title = "Users";
@@ -163,7 +159,7 @@ class UsersController extends Controller
 
         # Update user  data
         User::where('id', $id)->update($data);
-        return redirect('admin/users');
+        return redirect('users');
     }
 
     /**

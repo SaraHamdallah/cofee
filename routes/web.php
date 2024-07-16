@@ -29,14 +29,21 @@ Route::get('wavecofee', [SiteController::class, 'drinks'])->name('drinks');
 // });
 
 
-Route::prefix('admin')->group(function () {
-Route::get('login', [UsersController::class, 'registrationforms'])->name('test');
-Route::post('register',[UsersController::class,'store'])->name('signup');
-Route::post('login',[UsersController::class,'login'])->name('signin');
-Route::post('logout',[UsersController::class,'logout'])->name('logout');
+// Route::prefix('admin')->group(function () {
+// Route::get('login', [UsersController::class, 'registrationforms'])->name('test');
+// Route::post('register',[UsersController::class,'store'])->name('signup');
+// Route::post('login',[UsersController::class,'login'])->name('signin');
+// Route::post('logout',[UsersController::class,'logout'])->name('logout');
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-Route::get('users',[UsersController::class,'index'])->name('users');
+// Route::get('users',[UsersController::class,'index'])->name('users');
+
+// });
+
+Auth::routes();
+
+Route::get('users', [App\Http\Controllers\HomeController::class, 'index'])->name('users');
+
 Route::get('addUser', [UsersController::class, 'create']);
 Route::post('addUser', [UsersController::class, 'store'])->name('addUser');
 Route::get('editUser/{id}', [UsersController::class, 'edit'])->name('editUser');
@@ -58,4 +65,3 @@ Route::post('addBeverage', [BeverageController::class, 'store'])->name('addBever
 Route::get('editBeverage/{id}', [BeverageController::class, 'edit'])->name('editBeverage');
 Route::put('updateBeverage/{id}', [BeverageController::class, 'update'])->name('updateBeverage');
 Route::delete('delBeverage/{id}',[BeverageController::class,'destroy'])->name('delBeverage');
-});

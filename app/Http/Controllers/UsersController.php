@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use App\Models\User;
 
 
@@ -15,6 +16,12 @@ class UsersController extends Controller
      */
     public function index()
     {
+        // Check if the user is authenticated
+        if (!Auth::check()) {
+            // Redirect to the login page if not authenticated
+            return redirect('admin/login')->with('error', 'You must be logged in to access this page.');
+        }
+
         $title = "Users";
         $title1 = "User";
         $users = User::get();
@@ -35,6 +42,12 @@ class UsersController extends Controller
      */
     public function create()
     {
+        // Check if the user is authenticated
+        if (!Auth::check()) {
+            // Redirect to the login page if not authenticated
+            return redirect('admin/login')->with('error', 'You must be logged in to access this page.');
+        }
+        
         $title = "Users";
         $title1 = "User";
         return view('dash/addUser', compact('title', 'title1')); //name of the form
@@ -53,6 +66,11 @@ class UsersController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+            
+            // Set session variables
+            Session::put('username', Auth::user()->username);
+            Session::put('name', Auth::user()->name);
+
             return redirect()->intended('admin/users');
         }
             # Redirect back to the #signin fragment with errors
@@ -108,6 +126,12 @@ class UsersController extends Controller
      */
     public function edit(string $id)
     {
+        // Check if the user is authenticated
+        if (!Auth::check()) {
+            // Redirect to the login page if not authenticated
+            return redirect('admin/login')->with('error', 'You must be logged in to access this page.');
+        }
+        
         $title = "Users";
         $title1 = "User";
         $user = User::findOrFail($id);

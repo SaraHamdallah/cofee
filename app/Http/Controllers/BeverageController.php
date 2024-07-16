@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Beverage;
 
 
@@ -13,6 +14,12 @@ class BeverageController extends Controller
      */
     public function index()
     {
+        // Check if the user is authenticated
+        if (!Auth::check()) {
+            // Redirect to the login page if not authenticated
+            return redirect('admin/login')->with('error', 'You must be logged in to access this page.');
+        }
+
         $title = "Beverages";
         $title1 = "Beverage";
         $beverages = Beverage::get();
@@ -24,6 +31,12 @@ class BeverageController extends Controller
      */
     public function create()
     {
+        // Check if the user is authenticated
+        if (!Auth::check()) {
+            // Redirect to the login page if not authenticated
+            return redirect('admin/login')->with('error', 'You must be logged in to access this page.');
+        }
+
         $title = "Beverages";
         $title1 = "Beverage";
         return view('dash/addBeverage', compact('title', 'title1')); //name of the form
@@ -37,38 +50,38 @@ class BeverageController extends Controller
     {
         // Log incoming request data
         // \Log::info('Request data:', $request->all());
-            $messages = $this->errMsg();
+        $messages = $this->errMsg();
 
-            $data = $request->validate([
-                'title' => 'required|string|max:255',
-                'content' => 'required|string|max:255',
-                'price' => 'required|numeric',
-                'image' => 'required|file|mimes:jpeg,jpg,png',
-                'category_id' => 'required|exists:categories,id',
-            ], $messages);
+        $data = $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'image' => 'required|file|mimes:jpeg,jpg,png',
+            'category_id' => 'required|exists:categories,id',
+        ], $messages);
 
-            # Set the boolean values for published and special
-            $data['published'] = isset($request->published); #laravel wiil transfer if is set check boxx =1 and non = 0
-            $data['special'] = isset($request->special); #laravel wiil transfer if is set check boxx =1 and non = 0
+        # Set the boolean values for published and special
+        $data['published'] = isset($request->published); #laravel wiil transfer if is set check boxx =1 and non = 0
+        $data['special'] = isset($request->special); #laravel wiil transfer if is set check boxx =1 and non = 0
 
-            #method is used to check if a file upload exists in the request
-                if ($request->hasFile('image')) {
-                    $imgExt = $request->image->getClientOriginalExtension();
-                    $fileName = time() . '.' . $imgExt;
-                    $path = 'assets/images';
-                    $request->image->move($path, $fileName);
-                    $data['image'] = $fileName;
+        #method is used to check if a file upload exists in the request
+        if ($request->hasFile('image')) {
+            $imgExt = $request->image->getClientOriginalExtension();
+            $fileName = time() . '.' . $imgExt;
+            $path = 'assets/images';
+            $request->image->move($path, $fileName);
+            $data['image'] = $fileName;
 
-                   // \Log::info('Image uploaded:', ['path' => $path, 'fileName' => $fileName]);
+            // \Log::info('Image uploaded:', ['path' => $path, 'fileName' => $fileName]);
 
-                }else {
-                # Handle the case where no file was uploaded (set a default image or return an error response)
-                return redirect()->back()->with('error', 'No file uploaded.');
-                }
-          
-                Beverage::create($data);
-               // \Log::info('Beverage created successfully:', $data);
-                return redirect('admin/beverages')->with('success', 'Beverage created successfully.');
+        }else {
+        # Handle the case where no file was uploaded (set a default image or return an error response)
+        return redirect()->back()->with('error', 'No file uploaded.');
+        }
+    
+        Beverage::create($data);
+        // \Log::info('Beverage created successfully:', $data);
+        return redirect('admin/beverages')->with('success', 'Beverage created successfully.');
     }
     /**
      * Display the specified resource.
@@ -83,6 +96,12 @@ class BeverageController extends Controller
      */
     public function edit(string $id)
     {
+        // Check if the user is authenticated
+        if (!Auth::check()) {
+            // Redirect to the login page if not authenticated
+            return redirect('admin/login')->with('error', 'You must be logged in to access this page.');
+        }
+        
         $title = "Beverages";
         $title1 = "Beverage";
         $beverage = Beverage::findOrFail($id);
@@ -96,21 +115,21 @@ class BeverageController extends Controller
     {
         //\Log::info('Request data:', $request->all());
         $messages = $this->errMsg();
-            $data = $request->validate([
-                'title' => 'required|string|max:255',
-                'content' => 'required|string|max:255',
-                'price' => 'required|numeric',
-                'published'=>'nullable|boolean',// Validate the 'active' field as boolean
-                'special'=>'nullable|boolean',// Validate the 'active' field as boolean
-                'image' => 'nullable|file|mimes:jpeg,jpg,png',
-                'category_id' => 'required|exists:categories,id',
-            ],$messages);
+        $data = $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'published'=>'nullable|boolean',// Validate the 'active' field as boolean
+            'special'=>'nullable|boolean',// Validate the 'active' field as boolean
+            'image' => 'nullable|file|mimes:jpeg,jpg,png',
+            'category_id' => 'required|exists:categories,id',
+        ],$messages);
 
-            $data['published'] = (bool)$data['published'];
-            $data['special'] = (bool)$data['special'];
-            //$data['special'] = isset($request->special) ? (bool)$request->special : false;
+        $data['published'] = (bool)$data['published'];
+        $data['special'] = (bool)$data['special'];
+        //$data['special'] = isset($request->special) ? (bool)$request->special : false;
 
-            // Handle image upload if provided
+        // Handle image upload if provided
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $fileName = time() . '.' . $image->getClientOriginalExtension();
@@ -120,7 +139,7 @@ class BeverageController extends Controller
         }
         # Update user  data
         Beverage::where('id', $id)->update($data);
-       // \Log::info('Beverage updated successfully:', $data);
+        // \Log::info('Beverage updated successfully:', $data);
         return redirect('admin/beverages');
     }
 
@@ -129,9 +148,12 @@ class BeverageController extends Controller
      */
     public function destroy(string $id)
     {
-        // Beverage::destroy($id);
-        // return redirect('beverages')->with('success', 'Beverage deleted successfully.');
+        Beverage::destroy($id);
+        return redirect('admin/beverages')->with('success', 'Beverage deleted successfully.');
     }
+        
+        
+
 
 
     public function errMsg(){

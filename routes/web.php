@@ -57,4 +57,5 @@ Route::get('addBeverage', [BeverageController::class, 'create']);
 Route::post('addBeverage', [BeverageController::class, 'store'])->name('addBeverage');
 Route::get('editBeverage/{id}', [BeverageController::class, 'edit'])->name('editBeverage');
 Route::put('updateBeverage/{id}', [BeverageController::class, 'update'])->name('updateBeverage');
+Route::delete('delBeverage/{id}',[BeverageController::class,'destroy'])->name('delBeverage');
 });

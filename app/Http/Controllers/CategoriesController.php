@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Category;
 
 
@@ -13,6 +14,12 @@ class CategoriesController extends Controller
      */
     public function index()
     {
+        // Check if the user is authenticated
+        if (!Auth::check()) {
+            // Redirect to the login page if not authenticated
+            return redirect('admin/login')->with('error', 'You must be logged in to access this page.');
+        }
+
         $title = "Categories";
         $title1 = "Category";
         $categories = Category::get();
@@ -24,6 +31,12 @@ class CategoriesController extends Controller
      */
     public function create()
     {
+        // Check if the user is authenticated
+        if (!Auth::check()) {
+            // Redirect to the login page if not authenticated
+            return redirect('admin/login')->with('error', 'You must be logged in to access this page.');
+        }
+
         $title = "Categories";
         $title1 = "Category";
         return view('dash/addCategory', compact('title', 'title1')); //name of the form
@@ -56,6 +69,12 @@ class CategoriesController extends Controller
      */
     public function edit(string $id)
     {
+        // Check if the user is authenticated
+        if (!Auth::check()) {
+            // Redirect to the login page if not authenticated
+            return redirect('admin/login')->with('error', 'You must be logged in to access this page.');
+        }
+
         $title = "Categories";
         $title1 = "Category";
         $category = Category::findOrFail($id);

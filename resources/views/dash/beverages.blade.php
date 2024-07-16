@@ -65,7 +65,16 @@
                           <td>{{ $beverage->title }}</td>
                           <td>{{ $beverage->published ? 'Yes' : 'No'}}</td>
                           <td><a href="{{ route('editBeverage', $beverage->id) }}"><img src="{{ asset('assets/dash/images/edit.png') }}" alt="Edit"></a></td>
-                          <td><img src="{{ asset('assets/dash/images/delete.png') }}" alt="Delete"></td>
+                          <td>
+                            <form id="delete-form-{{ $beverage->id }}" action="{{ route('delBeverage', $beverage->id) }}" method="post" style="display: none;">
+                              @csrf
+                              @method('DELETE')
+                              <input type="hidden" value="{{ $beverage->id }}" name="id">
+                            </form>
+                            <a href="javascript:void(0);" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $beverage->id }}').submit();">
+                            <img src="{{ asset('assets/dash/images/delete.png') }}" alt="Delete">
+                            </a>
+                          </td>
                         </tr>
                         @endforeach
                       </tbody>

@@ -20,9 +20,6 @@ Route::get('test1', function () {
     return view('test1');
 });
 
-// Route::get('drinks', function () {
-//     return view('drinks');
-// });
 
 // Route::prefix('cofee')->group(function () {
 Route::get('wavecofee', [SiteController::class, 'drinks'])->name('drinks');
@@ -31,15 +28,13 @@ Route::get('wavecofee', [SiteController::class, 'drinks'])->name('drinks');
 // Route::get('contact', [SiteController::class, 'contact'])->name('contact');
 // });
 
-//Route::get('register', [RegistrationController::class, 'registrationforms'])->name('signup');
-//Route::get('register', [RegistrationController::class, 'registrationforms'])->name('signup');
-Route::get('test', [RegistrationController::class, 'registrationforms'])->name('test');
-Route::post('register',[RegistrationController::class,'store'])->name('signup');
-// Route::get('login',[RegistrationController::class,'registrationforms'])->name('signin');
-Route::post('login',[RegistrationController::class,'login'])->name('signin');
+
+Route::prefix('admin')->group(function () {
+Route::get('login', [UsersController::class, 'registrationforms'])->name('test');
+Route::post('register',[UsersController::class,'store'])->name('signup');
+Route::post('login',[UsersController::class,'login'])->name('signin');
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-Route::get('users',[RegistrationController::class,'userss']);
 Route::get('users',[UsersController::class,'index'])->name('users');
 Route::get('addUser', [UsersController::class, 'create']);
 Route::post('addUser', [UsersController::class, 'store'])->name('addUser');
@@ -49,18 +44,15 @@ Route::put('updateUser/{id}', [UsersController::class, 'update'])->name('updateU
 
 
 Route::get('categories',[CategoriesController::class,'index'])->name('categories');
-
 Route::get('addCategory', [CategoriesController::class, 'create']);
 Route::post('addCategory', [CategoriesController::class, 'store'])->name('addCategory');
-
 Route::get('editCategory/{id}', [CategoriesController::class, 'edit'])->name('editCategory');
 Route::put('updateCategory/{id}', [CategoriesController::class, 'update'])->name('updateCategory');
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Route::get('beverages',[BeverageController::class,'index'])->name('beverages');
-
 Route::get('addBeverage', [BeverageController::class, 'create']);
 Route::post('addBeverage', [BeverageController::class, 'store'])->name('addBeverage');
-
 Route::get('editBeverage/{id}', [BeverageController::class, 'edit'])->name('editBeverage');
 Route::put('updateBeverage/{id}', [BeverageController::class, 'update'])->name('updateBeverage');
+});

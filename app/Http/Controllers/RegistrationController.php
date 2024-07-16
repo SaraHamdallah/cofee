@@ -9,9 +9,17 @@ use App\Models\User;
 
 class RegistrationController extends Controller
 {
-    public function userss()
+    // public function userss()
+    // {
+    //     return view('dash/users');
+    // }
+
+    public function index()
     {
-        return view('dash/users');
+        $title = "Users";
+        $title1 = "User";
+        $users = User::get();
+        return view('dash/users', compact('title', 'title1', 'users'));    #return view('name of view', compact('name of variables')); 
     }
 
 
@@ -20,7 +28,7 @@ class RegistrationController extends Controller
      */
     public function registrationforms()
     {
-        session()->forget('errors'); // Clear errors when loading the registration form
+        //session()->forget('errors'); // Clear errors when loading the registration form
         return view('dash/test');
     }
 

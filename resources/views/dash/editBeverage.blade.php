@@ -81,7 +81,7 @@
 											<div class="checkbox">
 												<label>
 												<input type="hidden" name="special" value="0">
-													<input type="checkbox" class="flat" name="special" value="1" @if($beverage->published) checked @endif>
+													<input type="checkbox" id="special" class="flat" name="special" value="1" @if($beverage->special) checked @endif>
 												</label>
 											</div>
 										</div>

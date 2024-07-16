@@ -59,7 +59,7 @@ class BeverageController extends Controller
                     $request->image->move($path, $fileName);
                     $data['image'] = $fileName;
 
-                    \Log::info('Image uploaded:', ['path' => $path, 'fileName' => $fileName]);
+                   // \Log::info('Image uploaded:', ['path' => $path, 'fileName' => $fileName]);
 
                 }else {
                 # Handle the case where no file was uploaded (set a default image or return an error response)
@@ -68,7 +68,7 @@ class BeverageController extends Controller
           
                 Beverage::create($data);
                // \Log::info('Beverage created successfully:', $data);
-                return redirect('beverages')->with('success', 'Beverage created successfully.');
+                return redirect('admin/beverages')->with('success', 'Beverage created successfully.');
     }
     /**
      * Display the specified resource.
@@ -94,7 +94,7 @@ class BeverageController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        \Log::info('Request data:', $request->all());
+        //\Log::info('Request data:', $request->all());
         $messages = $this->errMsg();
             $data = $request->validate([
                 'title' => 'required|string|max:255',
@@ -120,8 +120,8 @@ class BeverageController extends Controller
         }
         # Update user  data
         Beverage::where('id', $id)->update($data);
-        \Log::info('Beverage updated successfully:', $data);
-        return redirect('beverages');
+       // \Log::info('Beverage updated successfully:', $data);
+        return redirect('admin/beverages');
     }
 
     /**

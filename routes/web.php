@@ -33,6 +33,7 @@ Route::prefix('admin')->group(function () {
 Route::get('login', [UsersController::class, 'registrationforms'])->name('test');
 Route::post('register',[UsersController::class,'store'])->name('signup');
 Route::post('login',[UsersController::class,'login'])->name('signin');
+Route::post('logout',[UsersController::class,'logout'])->name('logout');
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Route::get('users',[UsersController::class,'index'])->name('users');
@@ -48,6 +49,7 @@ Route::get('addCategory', [CategoriesController::class, 'create']);
 Route::post('addCategory', [CategoriesController::class, 'store'])->name('addCategory');
 Route::get('editCategory/{id}', [CategoriesController::class, 'edit'])->name('editCategory');
 Route::put('updateCategory/{id}', [CategoriesController::class, 'update'])->name('updateCategory');
+Route::delete('delCategory/{id}', [CategoriesController::class, 'destroy'])->name('delCategory');
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Route::get('beverages',[BeverageController::class,'index'])->name('beverages');

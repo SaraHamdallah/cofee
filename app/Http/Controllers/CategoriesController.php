@@ -35,12 +35,12 @@ class CategoriesController extends Controller
     public function store(Request $request)
     {
         $messages = $this->errMsg();
-            $data = $request->validate([
-                'cat_name' => 'required|string|max:255',
-            ],$messages);
+        $data = $request->validate([
+            'cat_name' => 'required|string|max:255',
+        ],$messages);
 
-            Category::create($data);
-            return redirect('categories')->with('success', 'User created successfully.');
+        Category::create($data);
+        return redirect('admin/categories')->with('success', 'User created successfully.');
     }
 
     /**
@@ -68,13 +68,13 @@ class CategoriesController extends Controller
     public function update(Request $request, string $id)
     {
         $messages = $this->errMsg();
-            $data = $request->validate([
-                'cat_name' => 'required|string|max:255',
-            ],$messages);
+        $data = $request->validate([
+            'cat_name' => 'required|string|max:255',
+        ],$messages);
 
         # Update user  data
         Category::where('id', $id)->update($data);
-        return redirect('categories');
+        return redirect('admin/categories');
     }
 
     /**
@@ -82,7 +82,13 @@ class CategoriesController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $category = Category::findOrFail($id);
+        if ($category->beverages()->count() > 0) {
+            return redirect('admin/categories')->withErrors(['error' => 'Category cannot be deleted because it has associated beverages.']);
+        }
+
+        $category->delete();
+        return redirect('admin/categories')->with('success', 'Category deleted successfully.');
     }
 
     public function errMsg(){

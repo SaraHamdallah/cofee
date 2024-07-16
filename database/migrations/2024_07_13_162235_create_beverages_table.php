@@ -19,7 +19,7 @@ return new class extends Migration
             $table->boolean('published'); // Changed to boolean for published status
             $table->boolean('special'); // Changed to boolean for special status
             $table->string('image');
-            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
+            $table->foreignId('category_id')->constrained('categories');
             $table->timestamps();
         });
     }

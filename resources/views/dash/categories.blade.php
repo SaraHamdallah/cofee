@@ -57,12 +57,21 @@
 
 
                       <tbody>
-                      @foreach ($categories as $category)
-                        <tr>
-                          <td>{{ $category->cat_name }}</td>
-                          <td><a href="{{ route('editCategory', $category->id) }}"><img src="{{ asset('assets/dash/images/edit.png') }}" alt="Edit"></a></td>
-                          <td><img src="{{ asset('assets/dash/images/delete.png') }}" alt="Delete"></td>
-                        </tr>
+                        @foreach ($categories as $category)
+                          <tr>
+                            <td>{{ $category->cat_name }}</td>
+                            <td><a href="{{ route('editCategory', $category->id) }}"><img src="{{ asset('assets/dash/images/edit.png') }}" alt="Edit"></a></td>
+                            <td>
+                              <form id="delete-form-{{ $category->id }}" action="{{ route('delCategory', $category->id) }}" method="post" style="display: none;">
+                                  @csrf
+                                  @method('DELETE')
+                                  <input type="hidden" value="{{ $category->id }}" name="id">
+                              </form>
+                              <a href="javascript:void(0);" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $category->id }}').submit();">
+                                  <img src="{{ asset('assets/dash/images/delete.png') }}" alt="Delete">
+                              </a>
+                            </td>
+                          </tr>
                         @endforeach
                       </tbody>
                     </table>

@@ -25,24 +25,18 @@ Route::get('test1', function () {
 Route::get('wavecofee', [HomeController::class, 'drinks'])->name('drinks');
 
 Route::get('showContact', [ContactController::class, 'showContact']);
-Route::get('messages', [ContactController::class, 'index'])->name('messages');
-Route::post('contact', [ContactController::class, 'storeAndSend'])->name('contact');
-Route::get('showMessage/{id}', [ContactController::class, 'show'])->name('showMessage');
-Route::delete('delMessage/{id}',[ContactController::class,'destroy'])->name('delMessage');
-////////////////////////////////////////////////////////////////////////////////////
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////
 
 Auth::routes(['verify' => true]);
 Route::prefix('admin')->middleware('verified')->group(function () {
-Route::get('users', [HomeController::class, 'index'])->name('users');
 
+Route::get('users', [UsersController::class, 'index'])->name('users');
 Route::get('addUser', [UsersController::class, 'create']);
 Route::post('addUser', [UsersController::class, 'store'])->name('addUser');
 Route::get('editUser/{id}', [UsersController::class, 'edit'])->name('editUser');
 Route::put('updateUser/{id}', [UsersController::class, 'update'])->name('updateUser');
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 Route::get('categories',[CategoriesController::class,'index'])->name('categories');
 Route::get('addCategory', [CategoriesController::class, 'create']);
@@ -58,4 +52,11 @@ Route::post('addBeverage', [BeverageController::class, 'store'])->name('addBever
 Route::get('editBeverage/{id}', [BeverageController::class, 'edit'])->name('editBeverage');
 Route::put('updateBeverage/{id}', [BeverageController::class, 'update'])->name('updateBeverage');
 Route::delete('delBeverage/{id}',[BeverageController::class,'destroy'])->name('delBeverage');
+
+///////////////////////contact us emails//////////////////////////////////////////////////////////////////////////////
+
+Route::get('messages', [ContactController::class, 'index'])->name('messages');
+Route::post('contact', [ContactController::class, 'storeAndSend'])->name('contact');
+Route::get('showMessage/{id}', [ContactController::class, 'show'])->name('showMessage');
+Route::delete('delMessage/{id}',[ContactController::class,'destroy'])->name('delMessage');
 });

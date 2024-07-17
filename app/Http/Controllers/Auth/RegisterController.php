@@ -83,7 +83,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'username' => $data['username'],
             'password' => Hash::make($data['password']),
-            'active' => true,  // Set default value for active field
+            'active' => true,  # Set default value for active field
         ]);
     }
 
@@ -99,11 +99,10 @@ class RegisterController extends Controller
 
         $user = $this->create($request->all());
 
-        // Log the user in
+        # Log the user in
         $this->guard()->login($user);
 
-        // Apply the session to use the name and username
-        // Session::put('username', $user->username);
+        # Apply the session to use the name and username
         Session::put('name', $user->name);
 
         return redirect($this->redirectPath());

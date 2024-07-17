@@ -63,8 +63,7 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             
-            // Set session variables
-            // Session::put('username', Auth::user()->username);
+            # Set session variables
             Session::put('name', Auth::user()->name);
 
             return redirect()->intended($this->redirectTo);

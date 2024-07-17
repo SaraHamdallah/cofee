@@ -38,7 +38,7 @@
                           <span class="image"><img src="{{ asset('assets/dash/images/img.jpg') }}" alt="Profile Image" /></span>
                           <span>
                             <span>{{ $message->name }}</span>
-                            <span class="time">{{ $message->created_at->diffForHumans() }}</span><!-- Display human-readable time -->
+                            <span class="time">{{ $message->created_at_diff_for_humans }}</span><!-- Display human-readable time -->
                           </span>
                           <span class="message">
                           {{ Str::limit($message->message, 30) }} <!-- Limit message preview to 30 characters -->

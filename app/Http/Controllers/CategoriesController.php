@@ -29,7 +29,7 @@ class CategoriesController extends Controller
         $title = "Categories";
         $title1 = "Category";
         $nMessages = Contact::where('seen', 0)->get();
-        return view('dash/addCategory', compact('title', 'title1', 'nMessages')); //name of the form
+        return view('dash/addCategory', compact('title', 'title1', 'nMessages')); #name of the form
     }
 
     /**
@@ -59,17 +59,12 @@ class CategoriesController extends Controller
      */
     public function edit(string $id)
     {
-        // Check if the user is authenticated
-        if (!Auth::check()) {
-            // Redirect to the login page if not authenticated
-            return redirect('login')->with('error', 'You must be logged in to access this page.');
-        }
-
         $title = "Categories";
         $title1 = "Category";
-        $category = Category::findOrFail($id);
         $nMessages = Contact::where('seen', 0)->get();
-        return view('dash.editCategory', compact('title', 'title1', 'category', 'nMessages'));
+
+        $category = Category::findOrFail($id);
+        return view('dash.editCategory', compact('title', 'title1', 'nMessages', 'category'));
     }
 
     /**
@@ -101,6 +96,7 @@ class CategoriesController extends Controller
         return redirect('admin/categories')->with('success', 'Category deleted successfully.');
     }
 
+    
     public function errMsg(){
         return [
             'cat_name.required' => 'The name field is required.',

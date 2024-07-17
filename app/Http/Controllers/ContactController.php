@@ -14,9 +14,9 @@ class ContactController extends Controller
     {
         $title = "messages";
         $title1 = "messages";
-        $messages = Contact::get();
         $nMessages = Contact::where('seen', 0)->get();
-        return view('dash/messages', compact('title', 'title1', 'messages', 'nMessages'));    #return view('name of view', compact('name of variables')); 
+        $messages = Contact::get();
+        return view('dash/messages', compact('title', 'title1', 'nMessages', 'messages'));    #return view('name of view', compact('name of variables')); 
     }
 
     public function showContact()
@@ -46,12 +46,7 @@ class ContactController extends Controller
             $data['message']
         ));
 
-        // Define $nMessages: Count of unread messages
-        // $nMessages = Contact::where('seen', 0)->count();
-
-        return redirect('messages');
-
-        // return response()->json(['message' => 'Data stored and email sent successfully.']);
+        return "message Data stored and email sent successfully.";
     }
 
 
@@ -59,11 +54,14 @@ class ContactController extends Controller
     {
         $title = "showMessage";
         $title1 = "showMessage";
-        $message = Contact::findOrFail($id);
-        $nMessages = Contact::where('seen', 0)->get();   ///->take(3)
+        $message = Contact::findOrFail($id); # Find the message
+        $unreadCount = Contact::where('seen', 0)->count();  # Get the count of unread messages before marking as seen
 
         Contact::where('id',$id)->update(['seen'=> 1]);
-        return view('emails/showMessage', compact('title', 'title1', 'message', 'nMessages'));    #return view('name of view', compact('name of variables')); 
+
+        $nMessages = Contact::where('seen', 0)->get();  # Get the unread messages again for displaying
+
+        return view('emails/showMessage', compact('title', 'title1', 'message','unreadCount', 'nMessages'));    #return view('name of view', compact('name of variables')); 
     }
 
     public function errMsg(){
@@ -79,6 +77,6 @@ class ContactController extends Controller
     public function destroy(string $id)
     {
         Contact::destroy($id);
-        return redirect('dash/messages')->with('success', 'Beverage deleted successfully.');
+        return redirect('admin/messages')->with('success', 'Beverage deleted successfully.');
     }
 }

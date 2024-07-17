@@ -27,14 +27,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
-    {
-        $title = "Users";
-        $title1 = "User";
-        $users = User::get();
-        $nMessages = Contact::where('seen', 0)->get();
-        return view('dash/users', compact('title', 'title1', 'users', 'nMessages'));    #return view('name of view', compact('name of variables')); 
-    }
+    
     
 
     public function drinks(){

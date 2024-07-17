@@ -63,7 +63,7 @@
 										<div class="item form-group">
 											<label for="price" class="col-form-label col-md-3 col-sm-3 label-align">Price <span class="required">*</span></label>
 											<div class="col-md-6 col-sm-6 ">
-												<input id="price" class="form-control" type="number" name="price" value="{{ old('price') }}" required="required">
+												<input id="price" class="form-control" type="number" name="price" value="{{ old('price') }}" step="0.01" required="required">
 											</div>
 										</div>
 										<div class="item form-group">

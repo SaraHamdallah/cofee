@@ -15,7 +15,7 @@
                   <div class="tm-list-item">          
                     <img src="{{ asset('assets/images/' . $beverage->image) }}" alt="Image" class="tm-list-item-img">
                     <div class="tm-black-bg tm-list-item-text">
-                      <h3 class="tm-list-item-name">{{ $beverage->title }}<span class="tm-list-item-price">{{ $beverage->price }}</span></h3>
+                      <h3 class="tm-list-item-name">{{ $beverage->title }}<span class="tm-list-item-price">{{ '$' . number_format($beverage->price, 2) }}</span></h3>
                       <p class="tm-list-item-description">{{ $beverage->content }}</p>
                     </div>
                   </div>
@@ -23,4 +23,3 @@
                 </div>
               </div> 
             @endforeach
-            

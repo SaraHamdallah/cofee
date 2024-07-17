@@ -64,8 +64,8 @@ class LoginController extends Controller
             $request->session()->regenerate();
             
             // Set session variables
-            Session::put('username', Auth::user()->username);
-            // Session::put('name', Auth::user()->name);
+            // Session::put('username', Auth::user()->username);
+            Session::put('name', Auth::user()->name);
 
             return redirect()->intended($this->redirectTo);
         }

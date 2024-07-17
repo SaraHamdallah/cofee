@@ -7,7 +7,7 @@
                 <ul class=" navbar-right">
                   <li class="nav-item dropdown open" style="padding-left: 15px;">
                     <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                    <img src="{{ asset('assets/dash/images/img.jpg') }}" alt="">{{ session('name') }}
+                    <img src="{{ asset('assets/dash/images/img.jpg') }}" alt="">{{ session('username') }}
                   </a>
                     <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                       <a class="dropdown-item"  href="javascript:;"> Profile</a>
@@ -29,60 +29,27 @@
                   <li role="presentation" class="nav-item dropdown open">
                     <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
                       <i class="fa fa-envelope-o"></i>
-                      <span class="badge bg-green">6</span>
+                      <span class="badge bg-green">{{ $nMessages->count() }}</span>
                     </a>
                     <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
+                    @foreach ($nMessages->take(3) as $message)
                       <li class="nav-item">
-                        <a class="dropdown-item">
+                        <a class="dropdown-item" href="{{ route('showMessage', $message->id) }}"> <!-- Link to view the message -->
                           <span class="image"><img src="{{ asset('assets/dash/images/img.jpg') }}" alt="Profile Image" /></span>
                           <span>
-                            <span>John Smith</span>
-                            <span class="time">3 mins ago</span>
+                            <span>{{ $message->name }}</span>
+                            <span class="time">{{ $message->created_at->diffForHumans() }}</span><!-- Display human-readable time -->
                           </span>
                           <span class="message">
-                            Film festivals used to be do-or-die moments for movie makers. They were where...
+                          {{ Str::limit($message->message, 30) }} <!-- Limit message preview to 30 characters -->
                           </span>
                         </a>
                       </li>
-                      <li class="nav-item">
-                        <a class="dropdown-item">
-                          <span class="image"><img src="{{ asset('assets/dash/images/img.jpg') }}" alt="Profile Image" /></span>
-                          <span>
-                            <span>John Smith</span>
-                            <span class="time">3 mins ago</span>
-                          </span>
-                          <span class="message">
-                            Film festivals used to be do-or-die moments for movie makers. They were where...
-                          </span>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="dropdown-item">
-                          <span class="image"><img src="{{ asset('assets/dash/images/img.jpg') }}" alt="Profile Image" /></span>
-                          <span>
-                            <span>John Smith</span>
-                            <span class="time">3 mins ago</span>
-                          </span>
-                          <span class="message">
-                            Film festivals used to be do-or-die moments for movie makers. They were where...
-                          </span>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="dropdown-item">
-                          <span class="image"><img src="{{ asset('assets/dash/images/img.jpg') }}" alt="Profile Image" /></span>
-                          <span>
-                            <span>John Smith</span>
-                            <span class="time">3 mins ago</span>
-                          </span>
-                          <span class="message">
-                            Film festivals used to be do-or-die moments for movie makers. They were where...
-                          </span>
-                        </a>
-                      </li>
+                      @endforeach
+                    
                       <li class="nav-item">
                         <div class="text-center">
-                          <a class="dropdown-item">
+                          <a class="dropdown-item" href="{{ route('messages') }}">
                             <strong>See All Alerts</strong>
                             <i class="fa fa-angle-right"></i>
                           </a>

@@ -31,7 +31,7 @@ class LoginController extends Controller
      */
     protected $title;
 
-    protected $redirectTo = 'users';
+    protected $redirectTo = 'admin/users';
 
     /**
      * Create a new controller instance.
@@ -65,15 +65,14 @@ class LoginController extends Controller
             
             // Set session variables
             Session::put('username', Auth::user()->username);
-            Session::put('name', Auth::user()->name);
+            // Session::put('name', Auth::user()->name);
 
             return redirect()->intended($this->redirectTo);
         }
         # Redirect back to the #signin fragment with errors    
         // Authentication failed, return with error
-        return redirect()->to('users')
-                        ->withErrors(['login' => 'The provided credentials do not match our records.',])
-                        ->withInput($request->only('username'));
+        return redirect('login')->withErrors(['login' => 'The provided credentials do not match our records.',])
+                                ->withInput($request->only('username'));
     }
 
     public function logout(Request $request)

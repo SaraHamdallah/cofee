@@ -6,19 +6,21 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Beverage;
 use App\Models\Category;
+use App\Models\Contact;
+
 
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // /**
+    //  * Create a new controller instance.
+    //  *
+    //  * @return void
+    //  */
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
     /**
      * Show the application dashboard.
@@ -30,7 +32,8 @@ class HomeController extends Controller
         $title = "Users";
         $title1 = "User";
         $users = User::get();
-        return view('dash/users', compact('title', 'title1', 'users'));    #return view('name of view', compact('name of variables')); 
+        $nMessages = Contact::where('seen', 0)->get();
+        return view('dash/users', compact('title', 'title1', 'users', 'nMessages'));    #return view('name of view', compact('name of variables')); 
     }
     
 
@@ -41,5 +44,8 @@ class HomeController extends Controller
         $specialbeverages = Beverage::get()->where('special', true);
         return view('drinks', compact('title', 'categories', 'beverages', 'specialbeverages'));
     }
+
+
+    
 
 }

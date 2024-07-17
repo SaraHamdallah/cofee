@@ -7,7 +7,8 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\BeverageController;
 use App\Http\Controllers\SiteController;
-
+use App\Http\Controllers\ContactController;
+use GuzzleHttp\Middleware;
 
 Route::get('/', function () {
     return view('welcome');
@@ -21,28 +22,19 @@ Route::get('test1', function () {
     return view('test1');
 });
 
-
-// Route::prefix('cofee')->group(function () {
 Route::get('wavecofee', [HomeController::class, 'drinks'])->name('drinks');
-// Route::get('about', [SiteController::class, 'about'])->name('about');
-// Route::get('special', [SiteController::class, 'specials'])->name('special');
-// Route::get('contact', [SiteController::class, 'contact'])->name('contact');
-// });
 
+Route::get('showContact', [ContactController::class, 'showContact']);
+Route::get('messages', [ContactController::class, 'index'])->name('messages');
+Route::post('contact', [ContactController::class, 'storeAndSend'])->name('contact');
+Route::get('showMessage/{id}', [ContactController::class, 'show'])->name('showMessage');
+Route::delete('delMessage/{id}',[ContactController::class,'destroy'])->name('delMessage');
+////////////////////////////////////////////////////////////////////////////////////
 
-// Route::prefix('admin')->group(function () {
-// Route::get('login', [UsersController::class, 'registrationforms'])->name('test');
-// Route::post('register',[UsersController::class,'store'])->name('signup');
-// Route::post('login',[UsersController::class,'login'])->name('signin');
-// Route::post('logout',[UsersController::class,'logout'])->name('logout');
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// Route::get('users',[UsersController::class,'index'])->name('users');
-
-// });
-
-Auth::routes();
-
+Auth::routes(['verify' => true]);
+Route::prefix('admin')->middleware('verified')->group(function () {
 Route::get('users', [HomeController::class, 'index'])->name('users');
 
 Route::get('addUser', [UsersController::class, 'create']);
@@ -66,3 +58,4 @@ Route::post('addBeverage', [BeverageController::class, 'store'])->name('addBever
 Route::get('editBeverage/{id}', [BeverageController::class, 'edit'])->name('editBeverage');
 Route::put('updateBeverage/{id}', [BeverageController::class, 'update'])->name('updateBeverage');
 Route::delete('delBeverage/{id}',[BeverageController::class,'destroy'])->name('delBeverage');
+});

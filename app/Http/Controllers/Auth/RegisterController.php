@@ -31,7 +31,7 @@ class RegisterController extends Controller
      * @var string
      */
     protected $title;
-    protected $redirectTo = 'users';
+    protected $redirectTo = 'admin/users';
 
     /**
      * Create a new controller instance.
@@ -104,7 +104,7 @@ class RegisterController extends Controller
 
         // Apply the session to use the name and username
         Session::put('username', $user->username);
-        Session::put('name', $user->name);
+        // Session::put('name', $user->name);
 
         return redirect($this->redirectPath());
     }

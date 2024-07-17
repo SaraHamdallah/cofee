@@ -22,7 +22,7 @@
 								</li>
 								<li><a><i class="fa fa-desktop"></i> Messages <span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
-										<li><a href="messages.html">Messages List</a></li>
+										<li><a href="{{ route('messages') }}">Messages List</a></li>
 									</ul>
 								</li>
 							</ul>

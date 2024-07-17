@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Beverage;
+use App\Models\Contact;
+
 
 
 class BeverageController extends Controller
@@ -23,7 +25,8 @@ class BeverageController extends Controller
         $title = "Beverages";
         $title1 = "Beverage";
         $beverages = Beverage::get();
-        return view('dash/beverages', compact('title', 'title1', 'beverages'));    #return view('name of view', compact('name of variables')); 
+        $nMessages = Contact::where('seen', 0)->get();
+        return view('dash/beverages', compact('title', 'title1', 'beverages', 'nMessages'));    #return view('name of view', compact('name of variables')); 
     }
 
     /**
@@ -39,7 +42,8 @@ class BeverageController extends Controller
 
         $title = "Beverages";
         $title1 = "Beverage";
-        return view('dash/addBeverage', compact('title', 'title1')); //name of the form
+        $nMessages = Contact::where('seen', 0)->get();
+        return view('dash/addBeverage', compact('title', 'title1', 'nMessages')); //name of the form
 
     }
 
@@ -81,7 +85,7 @@ class BeverageController extends Controller
     
         Beverage::create($data);
         // \Log::info('Beverage created successfully:', $data);
-        return redirect('beverages')->with('success', 'Beverage created successfully.');
+        return redirect('admin/beverages')->with('success', 'Beverage created successfully.');
     }
     /**
      * Display the specified resource.
@@ -105,7 +109,8 @@ class BeverageController extends Controller
         $title = "Beverages";
         $title1 = "Beverage";
         $beverage = Beverage::findOrFail($id);
-        return view('dash.editBeverage', compact('title', 'title1', 'beverage'));
+        $nMessages = Contact::where('seen', 0)->get();
+        return view('dash.editBeverage', compact('title', 'title1', 'beverage', 'nMessages'));
     }
 
     /**
@@ -140,7 +145,7 @@ class BeverageController extends Controller
         # Update user  data
         Beverage::where('id', $id)->update($data);
         // \Log::info('Beverage updated successfully:', $data);
-        return redirect('beverages');
+        return redirect('admin/beverages');
     }
 
     /**
@@ -149,7 +154,7 @@ class BeverageController extends Controller
     public function destroy(string $id)
     {
         Beverage::destroy($id);
-        return redirect('beverages')->with('success', 'Beverage deleted successfully.');
+        return redirect('admin/beverages')->with('success', 'Beverage deleted successfully.');
     }
         
         

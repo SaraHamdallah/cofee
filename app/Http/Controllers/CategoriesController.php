@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Category;
-
+use App\Models\Contact;
 
 class CategoriesController extends Controller
 {
@@ -14,16 +14,11 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        // Check if the user is authenticated
-        if (!Auth::check()) {
-            // Redirect to the login page if not authenticated
-            return redirect('login')->with('error', 'You must be logged in to access this page.');
-        }
-
         $title = "Categories";
         $title1 = "Category";
         $categories = Category::get();
-        return view('dash/categories', compact('title', 'title1', 'categories'));    #return view('name of view', compact('name of variables')); 
+        $nMessages = Contact::where('seen', 0)->get();
+        return view('dash/categories', compact('title', 'title1', 'categories', 'nMessages'));    #return view('name of view', compact('name of variables')); 
     }
 
     /**
@@ -31,15 +26,10 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        // Check if the user is authenticated
-        if (!Auth::check()) {
-            // Redirect to the login page if not authenticated
-            return redirect('login')->with('error', 'You must be logged in to access this page.');
-        }
-
         $title = "Categories";
         $title1 = "Category";
-        return view('dash/addCategory', compact('title', 'title1')); //name of the form
+        $nMessages = Contact::where('seen', 0)->get();
+        return view('dash/addCategory', compact('title', 'title1', 'nMessages')); //name of the form
     }
 
     /**
@@ -53,7 +43,7 @@ class CategoriesController extends Controller
         ],$messages);
 
         Category::create($data);
-        return redirect('categories')->with('success', 'User created successfully.');
+        return redirect('admin/categories')->with('success', 'User created successfully.');
     }
 
     /**
@@ -78,7 +68,8 @@ class CategoriesController extends Controller
         $title = "Categories";
         $title1 = "Category";
         $category = Category::findOrFail($id);
-        return view('dash.editCategory', compact('title', 'title1', 'category'));
+        $nMessages = Contact::where('seen', 0)->get();
+        return view('dash.editCategory', compact('title', 'title1', 'category', 'nMessages'));
     }
 
     /**
@@ -93,7 +84,7 @@ class CategoriesController extends Controller
 
         # Update user  data
         Category::where('id', $id)->update($data);
-        return redirect('categories');
+        return redirect('admin/categories');
     }
 
     /**
@@ -103,11 +94,11 @@ class CategoriesController extends Controller
     {
         $category = Category::findOrFail($id);
         if ($category->beverages()->count() > 0) {
-            return redirect('categories')->withErrors(['error' => 'Category cannot be deleted because it has associated beverages.']);
+            return redirect('admin/categories')->withErrors(['error' => 'Category cannot be deleted because it has associated beverages.']);
         }
 
         $category->delete();
-        return redirect('categories')->with('success', 'Category deleted successfully.');
+        return redirect('admin/categories')->with('success', 'Category deleted successfully.');
     }
 
     public function errMsg(){

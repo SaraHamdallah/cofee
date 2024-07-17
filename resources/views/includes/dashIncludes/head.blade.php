@@ -4,7 +4,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{{ $title }}</title>
+    <title></title>
 
     <!-- Bootstrap -->
     <link href="cdn.datatables.net/1.10.20/{{ asset('assets/dash/css/jquery.dataTables.min.css') }}">

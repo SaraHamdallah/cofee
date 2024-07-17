@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
+use App\Models\Contact;
+
 
 
 class UsersController extends Controller
@@ -18,7 +20,8 @@ class UsersController extends Controller
     {
         $title = "Users";
         $title1 = "User";
-        return view('dash/addUser', compact('title', 'title1')); //name of the form 
+        $nMessages = Contact::where('seen', 0)->get();
+        return view('dash/addUser', compact('title', 'title1', 'nMessages')); //name of the form 
     }
 
 
@@ -38,7 +41,7 @@ class UsersController extends Controller
             $data['active'] = isset($request->active); #laravel wiil transfer if is set check boxx =1 and non = 0
             $data['password'] = Hash::make($data['password']);
             User::create($data);
-            return redirect('users')->with('success', 'User created successfully.');
+            return redirect('admin/users')->with('success', 'User created successfully.');
     }
 
     /**
@@ -49,7 +52,8 @@ class UsersController extends Controller
         $title = "Users";
         $title1 = "User";
         $user = User::findOrFail($id);
-        return view('dash.editUser', compact('title', 'title1', 'user'));
+        $nMessages = Contact::where('seen', 0)->get();
+        return view('dash.editUser', compact('title', 'title1', 'user', 'nMessages'));
     }
 
     /**
@@ -78,7 +82,7 @@ class UsersController extends Controller
 
         # Update user  data
         User::where('id', $id)->update($data);
-        return redirect('users');
+        return redirect('admin/users');
     }
 
     /**

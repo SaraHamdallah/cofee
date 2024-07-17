@@ -17,7 +17,7 @@ class BeverageController extends Controller
         // Check if the user is authenticated
         if (!Auth::check()) {
             // Redirect to the login page if not authenticated
-            return redirect('admin/login')->with('error', 'You must be logged in to access this page.');
+            return redirect('login')->with('error', 'You must be logged in to access this page.');
         }
 
         $title = "Beverages";
@@ -34,7 +34,7 @@ class BeverageController extends Controller
         // Check if the user is authenticated
         if (!Auth::check()) {
             // Redirect to the login page if not authenticated
-            return redirect('admin/login')->with('error', 'You must be logged in to access this page.');
+            return redirect('login')->with('error', 'You must be logged in to access this page.');
         }
 
         $title = "Beverages";
@@ -81,7 +81,7 @@ class BeverageController extends Controller
     
         Beverage::create($data);
         // \Log::info('Beverage created successfully:', $data);
-        return redirect('admin/beverages')->with('success', 'Beverage created successfully.');
+        return redirect('beverages')->with('success', 'Beverage created successfully.');
     }
     /**
      * Display the specified resource.
@@ -99,7 +99,7 @@ class BeverageController extends Controller
         // Check if the user is authenticated
         if (!Auth::check()) {
             // Redirect to the login page if not authenticated
-            return redirect('admin/login')->with('error', 'You must be logged in to access this page.');
+            return redirect('login')->with('error', 'You must be logged in to access this page.');
         }
         
         $title = "Beverages";
@@ -140,7 +140,7 @@ class BeverageController extends Controller
         # Update user  data
         Beverage::where('id', $id)->update($data);
         // \Log::info('Beverage updated successfully:', $data);
-        return redirect('admin/beverages');
+        return redirect('beverages');
     }
 
     /**
@@ -149,7 +149,7 @@ class BeverageController extends Controller
     public function destroy(string $id)
     {
         Beverage::destroy($id);
-        return redirect('admin/beverages')->with('success', 'Beverage deleted successfully.');
+        return redirect('beverages')->with('success', 'Beverage deleted successfully.');
     }
         
         

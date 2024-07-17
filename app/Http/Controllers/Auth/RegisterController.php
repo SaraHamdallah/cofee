@@ -53,7 +53,6 @@ class RegisterController extends Controller
         //    return view('auth.login', ['title' => $this->title]);
    }
 
-
     /**
      * Get a validator for an incoming registration request.
      *
@@ -69,7 +68,6 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8'],
         ],$messages);
-        
     }
 
     /**
@@ -110,6 +108,9 @@ class RegisterController extends Controller
 
         return redirect($this->redirectPath());
     }
+
+
+    
 
     protected function errMsg(){
         return [

@@ -17,7 +17,7 @@ class CategoriesController extends Controller
         // Check if the user is authenticated
         if (!Auth::check()) {
             // Redirect to the login page if not authenticated
-            return redirect('admin/login')->with('error', 'You must be logged in to access this page.');
+            return redirect('login')->with('error', 'You must be logged in to access this page.');
         }
 
         $title = "Categories";
@@ -34,7 +34,7 @@ class CategoriesController extends Controller
         // Check if the user is authenticated
         if (!Auth::check()) {
             // Redirect to the login page if not authenticated
-            return redirect('admin/login')->with('error', 'You must be logged in to access this page.');
+            return redirect('login')->with('error', 'You must be logged in to access this page.');
         }
 
         $title = "Categories";
@@ -53,7 +53,7 @@ class CategoriesController extends Controller
         ],$messages);
 
         Category::create($data);
-        return redirect('admin/categories')->with('success', 'User created successfully.');
+        return redirect('categories')->with('success', 'User created successfully.');
     }
 
     /**
@@ -72,7 +72,7 @@ class CategoriesController extends Controller
         // Check if the user is authenticated
         if (!Auth::check()) {
             // Redirect to the login page if not authenticated
-            return redirect('admin/login')->with('error', 'You must be logged in to access this page.');
+            return redirect('login')->with('error', 'You must be logged in to access this page.');
         }
 
         $title = "Categories";
@@ -93,7 +93,7 @@ class CategoriesController extends Controller
 
         # Update user  data
         Category::where('id', $id)->update($data);
-        return redirect('admin/categories');
+        return redirect('categories');
     }
 
     /**
@@ -103,11 +103,11 @@ class CategoriesController extends Controller
     {
         $category = Category::findOrFail($id);
         if ($category->beverages()->count() > 0) {
-            return redirect('admin/categories')->withErrors(['error' => 'Category cannot be deleted because it has associated beverages.']);
+            return redirect('categories')->withErrors(['error' => 'Category cannot be deleted because it has associated beverages.']);
         }
 
         $category->delete();
-        return redirect('admin/categories')->with('success', 'Category deleted successfully.');
+        return redirect('categories')->with('success', 'Category deleted successfully.');
     }
 
     public function errMsg(){

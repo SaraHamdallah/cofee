@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\BeverageController;
@@ -22,7 +23,7 @@ Route::get('test1', function () {
 
 
 // Route::prefix('cofee')->group(function () {
-Route::get('wavecofee', [SiteController::class, 'drinks'])->name('drinks');
+Route::get('wavecofee', [HomeController::class, 'drinks'])->name('drinks');
 // Route::get('about', [SiteController::class, 'about'])->name('about');
 // Route::get('special', [SiteController::class, 'specials'])->name('special');
 // Route::get('contact', [SiteController::class, 'contact'])->name('contact');
@@ -42,7 +43,7 @@ Route::get('wavecofee', [SiteController::class, 'drinks'])->name('drinks');
 
 Auth::routes();
 
-Route::get('users', [App\Http\Controllers\HomeController::class, 'index'])->name('users');
+Route::get('users', [HomeController::class, 'index'])->name('users');
 
 Route::get('addUser', [UsersController::class, 'create']);
 Route::post('addUser', [UsersController::class, 'store'])->name('addUser');

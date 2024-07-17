@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Beverage;
+use App\Models\Category;
 
 
 class HomeController extends Controller
@@ -29,6 +31,15 @@ class HomeController extends Controller
         $title1 = "User";
         $users = User::get();
         return view('dash/users', compact('title', 'title1', 'users'));    #return view('name of view', compact('name of variables')); 
+    }
+    
+
+    public function drinks(){
+        $title = "Drink Menu";
+        $categories = Category::take(3)->get();          
+        $beverages = Beverage::get()->where('published', true);// Fetch only the published courses
+        $specialbeverages = Beverage::get()->where('special', true);
+        return view('drinks', compact('title', 'categories', 'beverages', 'specialbeverages'));
     }
 
 }

@@ -95,7 +95,13 @@ class RegisterController extends Controller
      */
     public function register(Request $request)
     {
-        $this->validator($request->all())->validate();
+        // $this->validator($request->all())->validate();
+        $validator = $this->validator($request->all());
+        if ($validator->fails()) {
+            return redirect('/login#signup')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
 
         $user = $this->create($request->all());
 
@@ -123,3 +129,14 @@ class RegisterController extends Controller
         ];
     }
 }
+
+
+// return redirect()->to('/login#signup')->with([
+//     'name.required' => 'The name field is required.',
+//     'email.required' => 'The email field is required.',
+//     'email.email' => 'The email must be a valid email address.',
+//     'email.unique' => 'The email has already been taken.',
+//     'username.required' => 'The username field is required.',
+//     'username.unique' => 'The username has already been taken.',
+//     'password.required' => 'The password field is required.',
+// ]);

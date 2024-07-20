@@ -49,6 +49,9 @@
                                     <div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align" for="title">Title <span class="required">*</span>
 											</label>
+											@error('title')
+												<p style="color:red">{{ $message }}</p>
+											@enderror
 											<div class="col-md-6 col-sm-6 ">
 												<input type="text" id="title" name="title" value="{{ old('title') }}" required="required" class="form-control ">
 											</div>
@@ -56,12 +59,18 @@
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align" for="content">Content <span class="required">*</span>
 											</label>
+											@error('content')
+												<p style="color:red">{{ $message }}</p>
+											@enderror
 											<div class="col-md-6 col-sm-6 ">
 												<textarea id="content" name="content"  required="required" class="form-control">{{ old('content') }}</textarea>
 											</div>
 										</div>
 										<div class="item form-group">
 											<label for="price" class="col-form-label col-md-3 col-sm-3 label-align">Price <span class="required">*</span></label>
+											@error('price')
+												<p style="color:red">{{ $message }}</p>
+											@enderror
 											<div class="col-md-6 col-sm-6 ">
 												<input id="price" class="form-control" type="number" name="price" value="{{ old('price') }}" step="0.01" required="required">
 											</div>
@@ -85,6 +94,9 @@
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align" for="image">Image <span class="required">*</span>
 											</label>
+											@error('image')
+												<p style="color:red">{{ $message }}</p>
+											@enderror
 											<div class="col-md-6 col-sm-6 ">
 												<input type="file" id="image" name="image" required="required" class="form-control">
 											</div>
@@ -100,6 +112,9 @@
                                                         <option value="{{ $category->id }}"{{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->cat_name }}</option>
                                                     @endforeach
 												</select>
+												@error('category_id')
+												<p style="color:red">{{ $message }}</p>
+											@enderror
 											</div>
 										</div>
 										<div class="ln_solid"></div>

@@ -110,7 +110,7 @@ class BeverageController extends Controller
         $data['published'] = (bool)$data['published'];
         $data['special'] = (bool)$data['special'];
 
-        # Handle image upload if provided
+        # Handle image upload if provided 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $fileName = time() . '.' . $image->getClientOriginalExtension();
@@ -142,7 +142,7 @@ class BeverageController extends Controller
             'content.required' => 'The content field is required.',
             'price.required' => 'The price field is required.',
             'image.required' => 'The image field is required.',
-            'category_id.required' => 'The category field is required.',
+            'category_id.required' => 'Select the category.',
         ];
     }
 }

@@ -49,7 +49,7 @@
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align" for="add-category">Add Category <span class="required">*</span></label>
                                             <p style="color:red">
-                                                @error('name')
+                                                @error('cat_name')
                                                     {{ $message }}
                                                 @enderror
                                             </p>

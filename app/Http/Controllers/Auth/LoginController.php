@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
+use App\Models\User;
+
 
 class LoginController extends Controller
 {
@@ -51,7 +53,7 @@ class LoginController extends Controller
     }
 
     /**
-     * Authenticate Registration
+     * Authenticate Registration 
      */
     public function login(Request $request)
     {

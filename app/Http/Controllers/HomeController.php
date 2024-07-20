@@ -34,7 +34,9 @@ class HomeController extends Controller
         $title = "Drink Menu";
         $categories = Category::take(3)->get();          
         $beverages = Beverage::get()->where('published', true);// Fetch only the published courses
-        $specialbeverages = Beverage::get()->where('special', true);
+        $specialbeverages = Beverage::where('special', true)
+                             ->where('published', true)
+                             ->get();
         return view('drinks', compact('title', 'categories', 'beverages', 'specialbeverages'));
     }
 

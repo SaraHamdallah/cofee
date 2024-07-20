@@ -46,6 +46,19 @@
                       <div class="row">
                           <div class="col-sm-12">
                             <div class="card-box table-responsive">
+                            <!-- Success Alert -->
+                            @if(session('success'))
+                              <div class="alert alert-success" role="alert">
+                                  {{ session('success') }}
+                              </div>
+                            @endif
+
+                            <!-- Error Alert -->
+                            @if($errors->has('error'))
+                              <div class="alert alert-danger" role="alert">
+                                  {{ $errors->first('error') }}
+                              </div>
+                            @endif
                     <table id="datatable" class="table table-striped table-bordered" style="width:100%">
                       <thead>
                         <tr>
@@ -67,7 +80,7 @@
                                   @method('DELETE')
                                   <input type="hidden" value="{{ $category->id }}" name="id">
                               </form>
-                              <a href="javascript:void(0);" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $category->id }}').submit();">
+                              <a href="javascript:void(0);"onclick="confirmDelete({{ $category->id }});">
                                   <img src="{{ asset('assets/dash/images/delete.png') }}" alt="Delete">
                               </a>
                             </td>
@@ -84,4 +97,11 @@
             </div>
           </div>
         </div>
+        <script>
+          function confirmDelete(categoryId) {
+            if (confirm('Are you sure you want to delete this category?')) {
+                document.getElementById('delete-form-' + categoryId).submit();
+            }
+          }
+        </script>
 @endsection

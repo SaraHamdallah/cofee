@@ -69,7 +69,7 @@
                               @method('DELETE')
                               <input type="hidden" value="{{ $message->id }}" name="id">
                             </form>
-                            <a href="javascript:void(0);" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $message->id }}').submit();">
+                            <a href="javascript:void(0);"onclick="confirmDelete({{ $message->id }});">
                             <img src="{{ asset('assets/dash/images/delete.png') }}" alt="Delete">
                             </a>
                           </td>
@@ -86,4 +86,11 @@
             </div>
           </div>
         </div>
+        <script>
+          function confirmDelete(messageId) {
+            if (confirm('Are you sure you want to delete this message?')) {
+                document.getElementById('delete-form-' + messageId).submit();
+            }
+          }
+        </script>
 @endsection

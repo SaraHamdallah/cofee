@@ -10,17 +10,14 @@ use App\Http\Controllers\SiteController;
 use App\Http\Controllers\ContactController;
 use GuzzleHttp\Middleware;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('dash/users');
+// });
 
 Route::get('test', function () {
     return view('dash/test');
 });
 
-Route::get('test1', function () {
-    return view('test1');
-});
 
 Route::get('wavecofee', [HomeController::class, 'drinks'])->name('drinks');
 

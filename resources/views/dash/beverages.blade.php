@@ -46,6 +46,19 @@
                       <div class="row">
                           <div class="col-sm-12">
                             <div class="card-box table-responsive">
+                              <!-- Success Alert -->
+                            @if(session('success'))
+                              <div class="alert alert-success" role="alert">
+                                  {{ session('success') }}
+                              </div>
+                            @endif
+
+                            <!-- Error Alert -->
+                            @if($errors->has('error'))
+                              <div class="alert alert-danger" role="alert">
+                                  {{ $errors->first('error') }}
+                              </div>
+                            @endif
                     <table id="datatable" class="table table-striped table-bordered" style="width:100%">
                       <thead>
                         <tr>
@@ -71,7 +84,7 @@
                               @method('DELETE')
                               <input type="hidden" value="{{ $beverage->id }}" name="id">
                             </form>
-                            <a href="javascript:void(0);" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $beverage->id }}').submit();">
+                            <a href="javascript:void(0);"onclick="confirmDelete({{ $beverage->id }});">
                             <img src="{{ asset('assets/dash/images/delete.png') }}" alt="Delete">
                             </a>
                           </td>
@@ -79,6 +92,7 @@
                         @endforeach
                       </tbody>
                     </table>
+                    
                   </div>
                   </div>
               </div>
@@ -88,4 +102,11 @@
             </div>
           </div>
         </div>
+        <script>
+          function confirmDelete(beverageId) {
+            if (confirm('Are you sure you want to delete this beverage?')) {
+                document.getElementById('delete-form-' + beverageId).submit();
+            }
+          }
+        </script>
 @endsection

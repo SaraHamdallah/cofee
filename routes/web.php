@@ -11,15 +11,11 @@ use App\Http\Controllers\ContactController;
 use GuzzleHttp\Middleware;
 
 // Route::get('/', function () {
-//     return view('dash/users');
+//     return view('welcome');
 // });
 
-Route::get('test', function () {
-    return view('dash/test');
-});
 
-
-Route::get('wavecofee', [HomeController::class, 'drinks'])->name('drinks');
+Route::get('wavecofee', [SiteController::class, 'drinks'])->name('drinks');
 
 Route::get('showContact', [ContactController::class, 'showContact']);
 
@@ -33,7 +29,8 @@ Route::get('addUser', [UsersController::class, 'create']);
 Route::post('addUser', [UsersController::class, 'store'])->name('addUser');
 Route::get('editUser/{id}', [UsersController::class, 'edit'])->name('editUser');
 Route::put('updateUser/{id}', [UsersController::class, 'update'])->name('updateUser');
-///////////////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////Categories////////////////////////////////////////////////////////////////////
 
 Route::get('categories',[CategoriesController::class,'index'])->name('categories');
 Route::get('addCategory', [CategoriesController::class, 'create']);
@@ -41,7 +38,8 @@ Route::post('addCategory', [CategoriesController::class, 'store'])->name('addCat
 Route::get('editCategory/{id}', [CategoriesController::class, 'edit'])->name('editCategory');
 Route::put('updateCategory/{id}', [CategoriesController::class, 'update'])->name('updateCategory');
 Route::delete('delCategory/{id}', [CategoriesController::class, 'destroy'])->name('delCategory');
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////Beverages///////////////////////////////////////////////////////////////////
 
 Route::get('beverages',[BeverageController::class,'index'])->name('beverages');
 Route::get('addBeverage', [BeverageController::class, 'create']);
@@ -50,7 +48,7 @@ Route::get('editBeverage/{id}', [BeverageController::class, 'edit'])->name('edit
 Route::put('updateBeverage/{id}', [BeverageController::class, 'update'])->name('updateBeverage');
 Route::delete('delBeverage/{id}',[BeverageController::class,'destroy'])->name('delBeverage');
 
-///////////////////////contact us emails//////////////////////////////////////////////////////////////////////////////
+///////////////////////contact us emails/////////////////////////////////////////////////////////////////
 
 Route::get('messages', [ContactController::class, 'index'])->name('messages');
 Route::post('contact', [ContactController::class, 'storeAndSend'])->name('contact');

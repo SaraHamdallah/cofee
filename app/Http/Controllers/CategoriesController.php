@@ -29,6 +29,7 @@ class CategoriesController extends Controller
         $title = "Categories";
         $title1 = "Category";
         $nMessages = Contact::where('seen', 0)->get();
+
         return view('dash/addCategory', compact('title', 'title1', 'nMessages')); #name of the form
     }
 
@@ -51,7 +52,7 @@ class CategoriesController extends Controller
      */
     public function show(string $id)
     {
-        //$category = Category::with('beverages')->findOrFail($id);
+        // 
     }
 
     /**
@@ -62,8 +63,8 @@ class CategoriesController extends Controller
         $title = "Categories";
         $title1 = "Category";
         $nMessages = Contact::where('seen', 0)->get();
-
         $category = Category::findOrFail($id);
+        
         return view('dash.editCategory', compact('title', 'title1', 'nMessages', 'category'));
     }
 

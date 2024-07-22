@@ -15,7 +15,7 @@ class Contact extends Model
     'seen',
     ];
 
-    // Create an accessor for the formatted created_at
+    # Create an accessor for the formatted created_at
     public function getCreatedAtDiffForHumansAttribute()
     {
         $diff = $this->created_at->diffForHumans();

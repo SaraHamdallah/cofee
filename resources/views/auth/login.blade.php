@@ -78,32 +78,31 @@
                 @csrf        
                 <h1>{{ __('Create Account') }}</h1>
               <div>
-                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="Fullname" required="" />
-                @error('name')
+                <input id="name" type="text" class="form-control @error('register.name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="Fullname" required="" />
+                @error('name', 'register')
                   <p style="color:red">{{ $message }}</p>
                 @enderror
               </div>
               <div>
-                <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" placeholder="Username" required="" />
-                @error('username')
+                <input id="username" type="text" class="form-control @error('username', 'register') is-invalid @enderror" name="username" value="{{ old('username') }}" placeholder="Username" required="" />
+                @error('username', 'register')
                   <p style="color:red">{{ $message }}</p>
                 @enderror
               </div>
               <div>
-                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="Email" required="" />
-                @error('email')
+                <input id="email" type="email" class="form-control @error('email', 'register') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="Email" required="" />
+                @error('email', 'register')
                   <p style="color:red">{{ $message }}</p>
                 @enderror
               </div>
               <div>
-                <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Password" required="" />
-                @error('password')
+                <input type="password" class="form-control @error('password', 'register') is-invalid @enderror" name="password" placeholder="Password" required="" />
+                @error('password', 'register')
                   <p style="color:red">{{ $message }}</p>
                 @enderror
               </div>
               <div>
               <a class="btn btn-default submit" href="#" onclick="document.getElementById('registerform').submit();">{{ __('Submit') }}</a>
-              <!-- <input type="hidden" name="Registration" value="submit"/> -->
               </div>
 
               <div class="clearfix"></div>
@@ -126,12 +125,5 @@
         </div>
       </div>
     </div>
-    <!-- <script>
-        function clearErrors() {
-            @if(session()->has('errors'))
-                {{ session()->forget('errors') }}
-            @endif
-        }
-    </script> -->
   </body>
 </html>

@@ -19,6 +19,7 @@
                 </div>
             </div>
         </div>
+
         <div class="clearfix"></div>
         <div class="row">
             <div class="col-md-12 col-sm-12 ">
@@ -95,13 +96,11 @@
                                     <button type="submit" class="btn btn-success">Update</button>
                                 </div>
                             </div>
-
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 @endsection

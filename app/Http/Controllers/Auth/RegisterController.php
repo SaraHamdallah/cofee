@@ -49,8 +49,7 @@ class RegisterController extends Controller
     */
    public function showRegistrationForm()
    {
-    return redirect()->to('/login#signup')->with('title', $this->title);
-        //    return view('auth.login', ['title' => $this->title]);
+        return redirect()->to('/login#signup')->with('title', $this->title);
    }
 
     /**
@@ -95,11 +94,10 @@ class RegisterController extends Controller
      */
     public function register(Request $request)
     {
-        // $this->validator($request->all())->validate();
         $validator = $this->validator($request->all());
         if ($validator->fails()) {
             return redirect('/login#signup')
-                        ->withErrors($validator)
+                        ->withErrors($validator, 'register')   //to specify the error bag
                         ->withInput();
         }
 

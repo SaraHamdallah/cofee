@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-  @include('includes/dashIncludes.head')
+    @include('includes/dashIncludes.head')
   </head>
 
   <body class="nav-md">
@@ -20,10 +20,9 @@
             <!-- /menu profile quick info -->
 
             <br />
-
             <!-- sidebar menu -->
             @include('includes/dashIncludes.sidebar')
-					<!-- /sidebar menu -->
+					  <!-- /sidebar menu -->
 
             <!-- /menu footer buttons -->
             @include('includes/dashIncludes.menuFooter')
@@ -36,7 +35,7 @@
         <!-- /top navigation -->
 
         <!-- page content -->
-             @yield('content')
+        @yield('content')
         <!-- /page content -->
 
         <!-- footer content -->

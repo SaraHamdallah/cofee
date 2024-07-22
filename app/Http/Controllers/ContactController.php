@@ -16,6 +16,7 @@ class ContactController extends Controller
         $title1 = "messages";
         $nMessages = Contact::where('seen', 0)->get();
         $messages = Contact::get();
+
         return view('dash/messages', compact('title', 'title1', 'nMessages', 'messages'));    #return view('name of view', compact('name of variables')); 
     }
 
@@ -23,6 +24,7 @@ class ContactController extends Controller
     {
         $title = "messages";
         $title1 = "messages";
+
         return view('includes.contact', compact('title', 'title1'));
     }
 
@@ -61,7 +63,7 @@ class ContactController extends Controller
 
         $nMessages = Contact::where('seen', 0)->get();  # Get the unread messages again for displaying
 
-        return view('emails/showMessage', compact('title', 'title1', 'message','unreadCount', 'nMessages'));    #return view('name of view', compact('name of variables')); 
+        return view('emails/showMessage', compact('title', 'title1', 'message','unreadCount', 'nMessages')); 
     }
 
     public function errMsg(){

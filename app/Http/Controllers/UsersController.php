@@ -22,6 +22,7 @@ class UsersController extends Controller
         $title1 = "User";
         $users = User::get();
         $nMessages = Contact::where('seen', 0)->get();
+
         return view('dash/users', compact('title', 'title1', 'users', 'nMessages'));    #return view('name of view', compact('name of variables')); 
     }
 
@@ -33,6 +34,7 @@ class UsersController extends Controller
         $title = "Users";
         $title1 = "User";
         $nMessages = Contact::where('seen', 0)->get();
+        
         return view('dash/addUser', compact('title', 'title1', 'nMessages')); //name of the form 
     }
 
@@ -52,6 +54,7 @@ class UsersController extends Controller
 
         $data['active'] = isset($request->active); #laravel wiil transfer if is set check boxx =1 and non = 0
         $data['password'] = Hash::make($data['password']);
+
         User::create($data);
         return redirect('admin/users')->with('success', 'User created successfully.');
     }
@@ -65,6 +68,7 @@ class UsersController extends Controller
         $title1 = "User";
         $user = User::findOrFail($id);
         $nMessages = Contact::where('seen', 0)->get();
+        
         return view('dash.editUser', compact('title', 'title1', 'user', 'nMessages'));
     }
 

@@ -19,8 +19,8 @@ class BeverageController extends Controller
         $title = "Beverages";
         $title1 = "Beverage";
         $nMessages = Contact::where('seen', 0)->get();
-
         $beverages = Beverage::get();
+
         return view('dash/beverages', compact('title', 'title1', 'nMessages', 'beverages'));    #return view('name of view', compact('name of variables')); 
     }
 
@@ -132,10 +132,7 @@ class BeverageController extends Controller
         return redirect('admin/beverages')->with('success', 'Beverage deleted successfully.');
     }
         
-        
-
-
-
+    
     public function errMsg(){
         return [
             'title.required' => 'The title field is required.',

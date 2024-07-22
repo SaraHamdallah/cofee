@@ -41,7 +41,7 @@
                   <span class="time">{{ $message->created_at_diff_for_humans }}</span><!-- Display human-readable time -->
                 </span>
                 <span class="message">
-                {{ Str::limit($message->message, 30) }} <!-- Limit message preview to 30 characters -->
+                {{ Str::limit($message->message, 70) }} <!-- Limit message preview to 30 characters -->
                 </span>
               </a>
             </li>

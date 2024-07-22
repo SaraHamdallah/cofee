@@ -44,7 +44,7 @@ class CategoriesController extends Controller
         ],$messages);
 
         Category::create($data);
-        return redirect('admin/categories')->with('success', 'User created successfully.');
+        return redirect('admin/categories')->with('success', 'Category created successfully.');
     }
 
     /**
@@ -78,7 +78,7 @@ class CategoriesController extends Controller
             'cat_name' => 'required|string|max:255',
         ],$messages);
 
-        # Update user  data
+        # Update Category  data
         Category::where('id', $id)->update($data);
         return redirect('admin/categories');
     }

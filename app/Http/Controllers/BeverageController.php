@@ -118,7 +118,7 @@ class BeverageController extends Controller
             $image->move($path, $fileName);
             $data['image'] = $fileName;     # Store the image path in the database
         }
-        # Update user  data
+        # Update Beverage data
         Beverage::where('id', $id)->update($data);
         return redirect('admin/beverages');
     }

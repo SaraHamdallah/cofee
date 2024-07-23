@@ -42,7 +42,7 @@ class ContactController extends Controller
         Contact::create($data);
 
         # Send the email
-        Mail::to('sara@gmail.com')->send(new ContactMail(
+        Mail::to('sarah@gmail.com')->send(new ContactMail(
             $data['email'],
             $data['name'],
             $data['message']

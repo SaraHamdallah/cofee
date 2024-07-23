@@ -17,8 +17,6 @@ use GuzzleHttp\Middleware;
 
 Route::get('wavecofee', [SiteController::class, 'drinks'])->name('drinks');
 
-Route::get('showContact', [ContactController::class, 'showContact']);
-
 ////////////////////////////////////////////////////////////////////////////////////
 
 Auth::routes(['verify' => true]);
@@ -51,7 +49,9 @@ Route::delete('delBeverage/{id}',[BeverageController::class,'destroy'])->name('d
 ///////////////////////contact us emails/////////////////////////////////////////////////////////////////
 
 Route::get('messages', [ContactController::class, 'index'])->name('messages');
-Route::post('contact', [ContactController::class, 'storeAndSend'])->name('contact');
 Route::get('showMessage/{id}', [ContactController::class, 'show'])->name('showMessage');
 Route::delete('delMessage/{id}',[ContactController::class,'destroy'])->name('delMessage');
 });
+
+Route::post('contact', [ContactController::class, 'storeAndSend'])->name('contact');
+Route::get('showContact', [ContactController::class, 'showContact']);

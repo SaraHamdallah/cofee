@@ -1,8 +1,8 @@
 <nav class="tm-black-bg tm-drinks-nav">
   <ul>
-  @foreach ($categories as $category)
+  @foreach ($categories as $index => $category)
     <li>
-      <a href="#{{ $category->id }}" class="tm-tab-link " data-id="{{ $category->id }}">{{ $category->cat_name }}</a>
+      <a href="#{{ $category->id }}" class="tm-tab-link {{ $index == 0 ? 'active' : '' }}" data-id="{{ $category->id }}">{{ $category->cat_name }}</a>
     </li>
     @endforeach
   </ul>

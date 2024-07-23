@@ -65,14 +65,14 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             
-            # Set session variables
+            # Set session variables 
             Session::put('name', Auth::user()->name);
 
             return redirect()->intended($this->redirectTo);
         }
         # Redirect back to the #signin fragment with errors     
         // Authentication failed, return with error
-        return redirect('login')->withErrors(['login' => 'The provided credentials do not match our records.',])
+        return redirect('login')->withErrors(['username' => 'The provided credentials do not match our records.',])
                                 ->withInput($request->only('username'));
     }
 

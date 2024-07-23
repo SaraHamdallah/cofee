@@ -66,7 +66,7 @@
                           <th>Edit</th>
                           <th>Delete</th>
                         </tr>
-                      </thead>
+                      </thead> 
                       <tbody>
                         @foreach ($categories as $category)
                           <tr>
@@ -79,7 +79,7 @@
                                   <input type="hidden" value="{{ $category->id }}" name="id">
                               </form>
                               <a href="javascript:void(0);"onclick="confirmDelete({{ $category->id }});">
-                                  <img src="{{ asset('assets/dash/images/delete.png') }}" alt="Delete">
+                                <img src="{{ asset('assets/dash/images/delete.png') }}" alt="Delete">
                               </a>
                             </td>
                           </tr>
@@ -98,7 +98,7 @@
   <script>
     function confirmDelete(categoryId) {
       if (confirm('Are you sure you want to delete this category?')) {
-          document.getElementById('delete-form-' + categoryId).submit();
+        document.getElementById('delete-form-' + categoryId).submit();
       }
     }
   </script>

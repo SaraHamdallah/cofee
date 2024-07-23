@@ -46,6 +46,19 @@
               <div class="row">
                 <div class="col-sm-12">
                   <div class="card-box table-responsive">
+                    <!-- Success Alert -->
+                    @if(session('success'))
+                      <div class="alert alert-success" role="alert">
+                        {{ session('success') }}
+                      </div>
+                    @endif
+
+                    <!-- Error Alert -->
+                    @if($errors->has('error'))
+                      <div class="alert alert-danger" role="alert">
+                        {{ $errors->first('error') }}
+                      </div>
+                    @endif
                     <table id="datatable" class="table table-striped table-bordered" style="width:100%">
                       <thead>
                         <tr>
@@ -70,11 +83,11 @@
                               <input type="hidden" value="{{ $message->id }}" name="id">
                             </form>
                             <a href="javascript:void(0);"onclick="confirmDelete({{ $message->id }});">
-                            <img src="{{ asset('assets/dash/images/delete.png') }}" alt="Delete">
+                              <img src="{{ asset('assets/dash/images/delete.png') }}" alt="Delete">
                             </a>
                           </td>
                         </tr>
-                        @endforeach
+                      @endforeach
                       </tbody>
                     </table>
                   </div>
@@ -89,7 +102,7 @@
   <script>
     function confirmDelete(messageId) {
       if (confirm('Are you sure you want to delete this message?')) {
-          document.getElementById('delete-form-' + messageId).submit();
+        document.getElementById('delete-form-' + messageId).submit();
       }
     }
   </script>

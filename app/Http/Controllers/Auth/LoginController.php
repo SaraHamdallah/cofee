@@ -70,8 +70,7 @@ class LoginController extends Controller
 
             return redirect()->intended($this->redirectTo);
         }
-        # Redirect back to the #signin fragment with errors     
-        // Authentication failed, return with error
+        # Authentication failed, return with error
         return redirect('login')->withErrors(['username' => 'The provided credentials do not match our records.',])
                                 ->withInput($request->only('username'));
     }
